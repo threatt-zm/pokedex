@@ -6,3 +6,4 @@ dist/
 .nvmrc
 package**.json
 tsconfig.json
+repl.log
