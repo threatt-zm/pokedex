@@ -1,30 +1,28 @@
+import { Cache } from "./pokecache.js"
+
 export class PokeAPI {
     private static readonly baseURL = "https://pokeapi.co/api/v2";
-
-    constructor() {}
+    cache:Cache;
+    constructor() {
+        this.cache = new Cache(5000);
+    }
 
     async fetchLocations(pageURL?:string):Promise<ShallowLocations> {
         const url = pageURL || `${PokeAPI.baseURL}/location-area`;
-        const response = await fetch(url, {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        return response.json();
+        if(!this.cache.get(url)) {
+             const response = await fetch(url);
+            this.cache.add(url, response.json())
+        }
+        return this.cache.get(url);
     }
 
     async fetchLocation(locationName:string):Promise<Location> {
         const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
-        const response = await fetch(url, {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        return response.json();
+        if(!this.cache.get(url)) {
+             const response = await fetch(url);
+            this.cache.add(url, response.json())
+        }
+        return this.cache.get(url);
     }
 }
 
@@ -38,7 +36,7 @@ export type ShallowLocations = {
 export type Location = {
     name:string;
     id:number;
-    //game_index:number;
+    game_index:number;
     encounter_method_rates:EncounterMethodRate;
     location:NamedAPIResource;
     names: Name[];
