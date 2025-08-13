@@ -10,9 +10,10 @@ export async function startREPL(state:State):Promise<void> {
         state.rl.on("line", async (input) => {
             const inputs = cleanInput(input);
             const cmd = inputs[0];
+            const args = inputs.slice(1);
             const commands = state.commands;
             if(commands[cmd]){
-                await commands[cmd].callback(state);
+                await commands[cmd].callback(state, ...args);
             } else {
                 console.log("Unknown command");
             }
