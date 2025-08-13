@@ -2,7 +2,7 @@ import { startREPL } from "./repl.js";
 import { initState } from "./state.js";
 
 async function main() {
-    await startREPL(initState());
+    await startREPL(initState(60000));
 }
 
 main();

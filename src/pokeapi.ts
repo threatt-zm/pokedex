@@ -3,8 +3,8 @@ import { Cache } from "./pokecache.js"
 export class PokeAPI {
     private static readonly baseURL = "https://pokeapi.co/api/v2";
     cache:Cache;
-    constructor() {
-        this.cache = new Cache(5000);
+    constructor(interval:number) {
+        this.cache = new Cache(interval);
     }
 
     async fetchLocations(pageURL?:string):Promise<ShallowLocations> {

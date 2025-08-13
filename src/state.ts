@@ -16,7 +16,7 @@ export type State = {
     nextLocationURL:string;
 }
 
-export function initState():State {
+export function initState(interval:number):State {
     return {
         rl: createInterface({
         input: process.stdin,
@@ -24,7 +24,7 @@ export function initState():State {
         prompt: "Pokedex > ",
         }),
         commands: getCommands(),
-        loc: new PokeAPI(),
+        loc: new PokeAPI(interval),
         prevLocationURL: "",
         nextLocationURL: "",
     }
