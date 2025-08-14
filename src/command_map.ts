@@ -1,7 +1,7 @@
 import { State } from "./state.js";
 
 export async function commandMap(state:State):Promise<void> {
-    const locationsData = await state.loc.fetchLocations(state.nextLocationURL);
+    const locationsData = await state.pokeapi.fetchLocations(state.nextLocationURL);
 
     for(const locs of locationsData.results) {
         console.log(locs.name);
@@ -16,7 +16,7 @@ export async function commandMapB(state:State):Promise<void> {
     if(!state.prevLocationURL){
         console.log("you're on the first page");
     } else {
-        const locationsData = await state.loc.fetchLocations(state.prevLocationURL);
+        const locationsData = await state.pokeapi.fetchLocations(state.prevLocationURL);
 
         for(const locs of locationsData.results) {
             console.log(locs.name);
