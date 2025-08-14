@@ -20,9 +20,7 @@ export async function startREPL(state:State):Promise<void> {
             state.rl.prompt();
         });
     } catch(err) {
-        if(err instanceof Error){
-            console.log(err.message);
-        }
+        console.log((err as Error).message);
     }
 }
 
